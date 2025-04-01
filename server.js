@@ -1,21 +1,17 @@
 const express = require('express');
 const path = require('path');
-require('dotenv').config();  //Loads the values from .env into process.env
-
 const app = express();
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 5000;
 
-// Serve static files from "public"
-app.use(express.static(path.join(__dirname, 'public')));
-
-// Set up view engine or static HTML
-app.set('views', path.join(__dirname, 'views'));
-app.engine('html', require('ejs').renderFile); // Optional: This lets us write plain HTML but still use EJS template syntax
-app.set('view engine', 'html');
-
-// Routes
 const mainRoutes = require('./routes/main');
-app.use('/', mainRoutes);
+
+// Serve frontend
+app.use(express.static(path.join(__dirname, 'client/dist')));
+app.use('/api', mainRoutes);
+
+app.get('/*any', (req, res) => {
+  res.sendFile(path.join(__dirname, 'client/dist/index.html'));
+});
 
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
