@@ -10,17 +10,19 @@ function RegistrationPage(){
         firstName: '',
         lastName: '',
         address: '',
-        phone: ''
+        phone: '',
+        email: ''
     });
     
     const [error, setError] = useState('');
-    
+    const [successMessage, setSuccessMessage] = useState('');
+
     function handleChange(e){
         const { name, value } = e.target;
         setFormData(prev => ({ ...prev, [name]: value }));
     }
 
-    function handleSubmit(e){
+    async function handleSubmit(e){
         e.preventDefault(); // prevent page reload
 
         // check if any field is empty
@@ -33,9 +35,43 @@ function RegistrationPage(){
 
         // if all fields are filled
         setError('');
-        console.log('Form submitted :)', formData);
+        setSuccessMessage('');
 
-        // TODO: Insert into DB
+        // Send form data to backend
+        try {
+            const response = await fetch('/api/register', {
+                method: 'POST',
+                headers: {
+                    'Content-Type' : 'application/json',
+                },
+                body: JSON.stringify(formData),
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                setSuccessMessage(data.message || 'Registration successful! :)');
+                setError('');
+                
+                // clear input fields
+                setFormData({
+                    username: '',
+                    password: '',
+                    firstName: '',
+                    lastName: '',
+                    address: '',
+                    phone: '',
+                    email: '' 
+                });
+            }
+            else{
+                setError(data.message || 'Error');
+                setSuccessMessage('');
+            }
+        } catch (err){
+            setError('Could not connect to server');
+            setSuccessMessage('');
+        }
     }
 
     return(
@@ -86,10 +122,19 @@ function RegistrationPage(){
             value={formData.phone}
             onChange={handleChange}
           />
+          <input
+            type="text"
+            name="email"
+            placeholder="Email address"
+            value={formData.email}
+            onChange={handleChange}
+          />
           <button type="submit">Register</button>
         </form>
 
         {error && <p className="error-message">{error}</p>}
+        {successMessage && <p className="success-message">{successMessage}</p>}
+
 
         <Link to="/login" className="login-back-link">
           Already have an account? Log in here!
