@@ -1,4 +1,5 @@
 import './header.css'
+import { Link } from 'react-router-dom';
 
 function Header() {
     return(
@@ -13,7 +14,7 @@ function Header() {
                 </div>
 
                 <div className="header-right">
-                    <button>Login</button>
+                <Link to="/login" className="login-link">Login</Link>
                     <button>Cart</button>
                 </div>
             </div>
