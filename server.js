@@ -16,6 +16,9 @@ const categoriesRoutes = require(path.join(__dirname, 'routes', 'categories'));
 const ordersRoutes = require(path.join(__dirname, 'routes', 'orders'));
 const productsRoutes = require(path.join(__dirname, 'routes', 'products'));
 
+// Converts req.body to a json object
+app.use('/api/*any', express.json());
+
 // Use routers
 app.use('/api/authentication', authenticationRoutes);
 app.use('/api/categories', categoriesRoutes);
