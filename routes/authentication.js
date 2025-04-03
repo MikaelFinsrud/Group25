@@ -15,10 +15,10 @@ router.post('/register', async (req, res, next) => {
     if (creds.username && creds.password && creds.email){
       conn = await pool.getConnection();
       // we store only the hashed password in our db for security reasons
-      hashedPassword = await bcrypt.hash(creds.password, 10);
+      const hashedPassword = await bcrypt.hash(creds.password, 10);
       
       try {
-        result = await conn.query(
+        const result = await conn.query(
           "INSERT INTO users (username, password, email, firstname, lastname, address, phonenumber) VALUES (?, ?, ?, ?, ?, ?, ?)",
           [creds.username, hashedPassword, creds.email, creds.firstName, creds.lastName, creds.address, creds.phone]
         );
@@ -39,7 +39,7 @@ router.post('/register', async (req, res, next) => {
       }
     }
     else {
-      err = utils.utils.createError("Account registration failed: Missing credentials", 400);
+      const err = utils.createError("Account registration failed: Missing credentials", 400);
       return next(err);
     }
   }
@@ -73,7 +73,7 @@ router.post('/login', async (req, res, next) => {
         if (valid){
           // Set session
           req.session.user = { username: creds.username };
-          const message = "Account successfully registered";
+          const message = "Account successfully logged in";
 
           return res.status(200).json({
             success: true,
@@ -81,17 +81,17 @@ router.post('/login', async (req, res, next) => {
           });
         }
         else{
-          err = utils.createError("Login failed: Invalid credentials", 400);
+          const err = utils.createError("Login failed: Invalid credentials", 400);
           return next(err);
         }
       }
       else{
-        err = utils.createError("Login failed: Invalid credentials", 400);
+        const err = utils.createError("Login failed: Invalid credentials", 400);
         return next(err);
       }
     }
     else {
-      err = utils.createError("Login failed: Missing credentials", 400);
+      const err = utils.createError("Login failed: Missing credentials", 400);
       return next(err);
     }
   }

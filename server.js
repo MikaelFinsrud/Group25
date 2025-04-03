@@ -58,7 +58,7 @@ app.use((err, req, res, next) => {
     success: false,
     message,
   });
-});
+});w
 
 // Serve frontend
 app.use(express.static(path.join(__dirname, 'client', 'dist')));
