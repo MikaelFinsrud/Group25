@@ -63,7 +63,7 @@ router.post('/login', async (req, res, next) => {
       conn = await pool.getConnection();
 
       const [user] = await conn.query(
-        "SELECT username, password FROM users WHERE username = ?",
+        "SELECT * FROM users WHERE username = ?",
         [creds.username]
       );
 
@@ -78,6 +78,7 @@ router.post('/login', async (req, res, next) => {
           return res.status(200).json({
             success: true,
             message,
+            user
           });
         }
         else{
