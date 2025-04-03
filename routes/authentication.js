@@ -3,11 +3,14 @@ const express = require('express');
 const path = require('path');
 const bcrypt = require('bcrypt');
 const pool = require(path.join(__dirname, '..', 'database.js'));
+const utils = require(path.join(__dirname, '..', 'utils.js'));
 const router = express.Router();
 
 router.post('/register', async (req, res, next) => {
+  let conn;
+
   try {
-    creds = req.body;
+    let creds = req.body;
 
     if (creds.username && creds.password && creds.email){
       conn = await pool.getConnection();
@@ -21,38 +24,84 @@ router.post('/register', async (req, res, next) => {
         );
 
         const message = "Account successfully registered";
-        res.status(200).json({
+        return res.status(200).json({
           success: true,
           message,
         });
       }
       catch (err){
-        err.statusCode = 500;
         if (err.code === 'ER_DUP_ENTRY'){
           err.message = "Failed account registration. Username or email already exists";
           err.statusCode = 400;
           console.error(err.message);
         }
-
-        next(err);
-      }
-      finally {
-        if (conn) conn.release();
+        return next(err);
       }
     }
     else {
-      err = new Error();
-      err.message = "Account registration failed: Missing credentials";
-      err.statusCode = 400;
-
-      console.error(err.message);
-      next(err);
+      err = utils.utils.createError("Account registration failed: Missing credentials", 400);
+      return next(err);
     }
   }
   catch(err) {
     console.error("Something went wrong with account registration: ", err.message);
     err.statusCode = 500;
-    next(err);
+    return next(err);
+  }
+  finally {
+    if (conn) conn.release();
+  }
+});
+
+router.post('/login', async (req, res, next) => {
+  let conn;
+
+  try {
+    let creds = req.body;
+
+    if (creds.username && creds.password){
+      conn = await pool.getConnection();
+
+      const [user] = await conn.query(
+        "SELECT username, password FROM users WHERE username = ?",
+        [creds.username]
+      );
+
+      if (user) {
+        const valid = await bcrypt.compare(creds.password, user.password);
+
+        if (valid){
+          // Set session
+          req.session.user = { username: creds.username };
+          const message = "Account successfully registered";
+
+          return res.status(200).json({
+            success: true,
+            message,
+          });
+        }
+        else{
+          err = utils.createError("Login failed: Invalid credentials", 400);
+          return next(err);
+        }
+      }
+      else{
+        err = utils.createError("Login failed: Invalid credentials", 400);
+        return next(err);
+      }
+    }
+    else {
+      err = utils.createError("Login failed: Missing credentials", 400);
+      return next(err);
+    }
+  }
+  catch(err) {
+    console.error("Something went wrong with login: ", err.message);
+    err.statusCode = 500;
+    return next(err);
+  }
+  finally {
+    if (conn) conn.release();
   }
 });
 
