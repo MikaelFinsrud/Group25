@@ -5,7 +5,7 @@ const bcrypt = require('bcrypt');
 const pool = require(path.join(__dirname, '..', 'database.js'));
 const router = express.Router();
 
-router.post('/register', async (req, res) => {
+router.post('/register', async (req, res, next) => {
   try {
     creds = req.body;
 
@@ -17,7 +17,7 @@ router.post('/register', async (req, res) => {
       try {
         result = await conn.query(
           "INSERT INTO users (username, password, email, firstname, lastname, address, phonenumber) VALUES (?, ?, ?, ?, ?, ?, ?)",
-          [creds.username, hashedPassword, creds.email, creds.firstname, creds.lastname, creds.address, creds.phonenumber]
+          [creds.username, hashedPassword, creds.email, creds.firstName, creds.lastName, creds.address, creds.phone]
         );
 
         const message = "Account successfully registered";
