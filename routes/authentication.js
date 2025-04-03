@@ -2,13 +2,13 @@
 const express = require('express');
 const path = require('path');
 const bcrypt = require('bcrypt');
-const pool = require(path.join(__dirname, '..', 'server.js'));
+const pool = require(path.join(__dirname, '..', 'database.js'));
 const router = express.Router();
 
 router.post('/register', async (req, res) => {
   try {
     creds = req.body;
-np
+
     if (creds.username && creds.password && creds.email){
       conn = await pool.getConnection();
       // we store only the hashed password in our db for security reasons
