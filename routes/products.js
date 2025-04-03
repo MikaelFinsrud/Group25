@@ -1,7 +1,8 @@
-// server/routes/main.js
+// server/routes/products.js
 const express = require('express');
 const router = express.Router();
 
+// Sample data
 const products = [
   { id: 1, name: 'Laptop', category: 'Computers', price: 1200 },
   { id: 2, name: 'Headphones', category: 'Audio', price: 99 },
