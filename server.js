@@ -11,10 +11,10 @@ const DB_PASS = process.env.DB_PASS || '';
 const DB_NAME = process.env.DB_NAME || 'electromart_3nf';
 
 // Routers
-const authenticationRoutes = require(path.join(__dirname, 'routes', 'authentication'));
-const categoriesRoutes = require(path.join(__dirname, 'routes', 'categories'));
-const ordersRoutes = require(path.join(__dirname, 'routes', 'orders'));
-const productsRoutes = require(path.join(__dirname, 'routes', 'products'));
+const authenticationRoutes = require(path.join(__dirname, 'routes', 'authentication.js'));
+const categoriesRoutes = require(path.join(__dirname, 'routes', 'categories.js'));
+const ordersRoutes = require(path.join(__dirname, 'routes', 'orders.js'));
+const productsRoutes = require(path.join(__dirname, 'routes', 'products.js'));
 
 // Converts req.body to a json object
 app.use('/api/*any', express.json());
