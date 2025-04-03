@@ -36,6 +36,9 @@ np
 
         next(err);
       }
+      finally {
+        if (conn) conn.release();
+      }
     }
     else {
       err = new Error();
