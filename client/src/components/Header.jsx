@@ -1,25 +1,43 @@
 import './header.css'
 import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { useNavigate } from 'react-router-dom';
 
 function Header() {
-    const { isLoggedIn, user } = useAuth();
+    const { isLoggedIn, user, logout } = useAuth();
+    const navigate = useNavigate();
+    const logoutAndRedirect = () => {
+        logout();
+        navigate('/');
+    }
     return(
         <>
             <div className="header">
                 <div className="header-left">
-                    <h2>ElectroMart</h2>
+                    <Link to="/" className="logo">ElectroMart</Link>
                 </div>
-                {isLoggedIn && <p>Logged in as {user.Username}</p>}
+                
                 <div className="header-center">
                     <input type="text" placeholder="Search for products..." />
                 </div>
 
                 <div className="header-right">
-                    <Link to="/login" className="login-link">Login</Link>
-                    <button>Cart</button>
+                    {isLoggedIn ? (
+                        <div>
+                            <button className="logout-link" onClick={ logoutAndRedirect }>Sign out</button>
+                            <Link to="/cart" className="cart-link">Cart</Link>
+                            <Link to="/profile" className="profile-link">Profile</Link>
+                        </div>
+                    ) : (
+                        <div>
+                            <Link to="/login" className="login-link">Login</Link>
+                            <div className="tooltip-wrapper">
+                                <span className="cart-link-2">Cart</span>
+                                <span className="tooltip-text">Log in to access the cart</span>
+                            </div>
+                        </div>
+                    )}
                 </div>
-
             </div>
         </>
     )

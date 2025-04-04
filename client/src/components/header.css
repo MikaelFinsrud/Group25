@@ -11,9 +11,11 @@
     font-family: roboto;
   }
   
-  .header-left h2 {
+  .header-left .logo {
     margin: 0;
     color: #222;
+    font-size: xx-large;
+    text-decoration: none;
   }
   
   .header-center {
@@ -49,5 +51,76 @@
     text-decoration: none;
     color: black;
   }
+
+  .logout-link{
+    margin-left: 1rem;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    background-color: white;
+    border: 1px solid #ccc;
+    cursor: pointer;
+    text-decoration: none;
+    color: black;
+  }
+
+  .cart-link{
+    margin-left: 1rem;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    background-color: white;
+    border: 1px solid #ccc;
+    cursor: pointer;
+    text-decoration: none;
+    color: black;
+  }
   
+  .cart-link-2{
+    margin-left: 1rem;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    background-color: rgba(255, 255, 255, 0.61);
+    border: 1px solid #ccc;
+    cursor: pointer;
+    text-decoration: none;
+    color: rgba(0, 0, 0, 0.61);
+  }
+
+  .profile-link{
+    margin-left: 1rem;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    background-color: white;
+    border: 1px solid #ccc;
+    cursor: pointer;
+    text-decoration: none;
+    color: black;
+  }
   
+
+  .tooltip-wrapper {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .tooltip-text {
+    visibility: hidden;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 5px;
+    padding: 0.5rem;
+    position: absolute;
+    z-index: 1;
+    top: 125%;
+    left: 50%;
+    transform: translateX(-50%);
+    white-space: nowrap;
+    font-size: 0.9rem;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  
+  .tooltip-wrapper:hover .tooltip-text {
+    visibility: visible;
+    opacity: 1;
+  }
