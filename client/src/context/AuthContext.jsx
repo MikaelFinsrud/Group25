@@ -11,10 +11,22 @@ export function AuthProvider({ children }) {
         setUser(userData);
     };
 
-    const logout = () =>{
-        setIsLoggedIn(false);
-        setUser(null);
+
+const logout = async () => {
+    try {
+        await fetch('/api/authentication/logout', {
+        method: 'POST',
+        credentials: 'include',
+        });
+    } catch (err) {
+        console.error("Logout request failed:", err);
     }
+    
+    // Clear context state
+    setIsLoggedIn(false);
+    setUser(null);
+    };
+
 
     return(
         <AuthContext.Provider value={{ isLoggedIn, user, login, logout}}>
