@@ -15,6 +15,7 @@ function CartPage(){
 
     if (!authChecked) return null;
 
+
     return(
         <>
             { isLoggedIn && <p>Welcome to the cart :)</p>}

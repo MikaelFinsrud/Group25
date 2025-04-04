@@ -5,6 +5,7 @@ import OrderCard from '../components/OrderCard';
 import './Profile.css';
 
 function Profile(){
+
     const { isLoggedIn, user, authChecked } = useAuth();
     const navigate = useNavigate()
 
