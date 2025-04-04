@@ -14,6 +14,7 @@ const authenticationRoutes = require(path.join(__dirname, 'routes', 'authenticat
 const categoriesRoutes = require(path.join(__dirname, 'routes', 'categories.js'));
 const ordersRoutes = require(path.join(__dirname, 'routes', 'orders.js'));
 const productsRoutes = require(path.join(__dirname, 'routes', 'products.js'));
+const profileRoutes = require(path.join(__dirname, 'routes', 'profile.js'));
 
 // Converts req.body to a json object
 app.use('/api/*any', express.json());
@@ -37,6 +38,7 @@ app.use('/api/authentication', authenticationRoutes);
 app.use('/api/categories', categoriesRoutes);
 app.use('/api/orders', ordersRoutes);
 app.use('/api/products', productsRoutes);
+app.use('/api/profile', profileRoutes);
 
 // Fallback for no API matches
 app.use('/api/*any',(req, res, next) => {
