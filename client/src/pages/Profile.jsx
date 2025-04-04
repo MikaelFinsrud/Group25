@@ -16,7 +16,7 @@ function Profile(){
     }, [authChecked, isLoggedIn, navigate]);
 
     if (!authChecked) return null;
-    // TODO - Fetch orders 
+
 
     return(
         <div className="profile-container">
@@ -25,9 +25,6 @@ function Profile(){
                 <h2>Profile</h2>
                 <p>Logged in as: {user.Username}, {user.Email}, {user.PhoneNumber}</p>
             </>
-
-            // TODO - Display orders using ordercards
-
             }
         </div>
     );
