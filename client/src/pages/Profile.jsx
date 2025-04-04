@@ -1,6 +1,8 @@
 import { useAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
+import OrderCard from '../components/OrderCard';
+import './Profile.css';
 
 function Profile(){
     const { isLoggedIn, user } = useAuth();
@@ -12,10 +14,20 @@ function Profile(){
         }
     }, [isLoggedIn, navigate]);
 
+    // Fetch orders 
+
     return(
-        <>
-            { isLoggedIn && <p>Welcome to the profile :)</p>}
-        </>
+        <div className="profile-container">
+            { isLoggedIn && 
+            <>
+                <h2>Profile</h2>
+                <p>Logged in as: {user.Username}, {user.Email}, {user.PhoneNumber}</p>
+            </>
+
+            // Display orders using ordercards
+
+            }
+        </div>
     );
 }
 

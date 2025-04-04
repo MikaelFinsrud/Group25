@@ -6,6 +6,7 @@ import Header from './components/Header.jsx'
 import Categories from './components/Categories.jsx'
 import CartPage from './pages/CartPage';
 import Profile from './pages/Profile';
+import './App.css';
 
 function App() {
   return (
