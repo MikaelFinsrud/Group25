@@ -5,16 +5,17 @@ import OrderCard from '../components/OrderCard';
 import './Profile.css';
 
 function Profile(){
-    const { isLoggedIn, user } = useAuth();
+    const { isLoggedIn, user, authChecked } = useAuth();
     const navigate = useNavigate()
 
     // Check if user is logged in. If not, redirect to /
     useEffect(() => {
-        if (!isLoggedIn){
+        if (authChecked && !isLoggedIn){
             navigate('/');
         }
-    }, [isLoggedIn, navigate]);
+    }, [authChecked, isLoggedIn, navigate]);
 
+    if (!authChecked) return null;
     // TODO - Fetch orders 
 
     return(

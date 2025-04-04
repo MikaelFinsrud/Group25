@@ -6,7 +6,7 @@ import { useAuth } from '../context/AuthContext';
 import { useEffect, useRef } from 'react';
 
 function Header() {
-    const { isLoggedIn } = useAuth();
+    const { isLoggedIn, authChecked } = useAuth();
     const [showMenu, setShowMenu] = useState(false);
     const dropdownRef = useRef(null);
 
@@ -35,6 +35,8 @@ function Header() {
 
       <div className="header-right">
         {/* User Dropdown */}
+        {authChecked && (
+        <>
         <div className="dropdown-wrapper" ref={dropdownRef}>
           <button className="icon-button"
           onClick={() => setShowMenu((prev) => !prev )} >
@@ -42,6 +44,7 @@ function Header() {
           </button>
           {showMenu && (
             <div className="dropdown-menu">
+                
               {isLoggedIn ? (
                 <>
                   <Link to="/profile" className="dropdown-item" onClick={() => setShowMenu(false)}>Profile</Link>
@@ -67,6 +70,8 @@ function Header() {
             </span>
             <span className="tooltip-text">Log in to access the cart</span>
           </div>
+        )}
+        </>
         )}
       </div>
     </div>
