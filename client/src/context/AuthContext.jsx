@@ -29,7 +29,7 @@ export function AuthProvider({ children }) {
 
     const checkAuth = async () => {
         try {
-            const response = await fetch('/api/authentication/status', {
+            const response = await fetch('/api/profile', {
                 credentials: 'include',
             });
 
