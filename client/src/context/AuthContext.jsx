@@ -35,7 +35,7 @@ export function AuthProvider({ children }) {
 
             const data = await response.json();
             if (response.ok && data.success){
-                login(data.user);
+                login(data.userData);
             }
         }
         catch (err){

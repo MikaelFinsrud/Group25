@@ -5,6 +5,7 @@ const ProductContext = createContext();
 export function ProductProvider({ children }){
     const [categories, setCategories] = useState([]);
     const [products, setProducts] = useState([]);
+    const [selectedCategoryID, setSelectedCategoryID] = useState([null]);
 
     useEffect(() => {
         async function fetchData(){
@@ -26,7 +27,7 @@ export function ProductProvider({ children }){
     }, []);
 
     return(
-        <ProductContext.Provider value={{ categories, products }}>
+        <ProductContext.Provider value={{ categories, products, selectedCategoryID, setSelectedCategoryID }}>
             {children}
         </ProductContext.Provider>
     );

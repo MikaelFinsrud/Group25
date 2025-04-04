@@ -4,7 +4,7 @@ import { useProduct } from '../context/ProductContext'
 // import categoryData from '../testdata/categories'
 
 function Categories() {
-    const { categories } = useProduct();
+    const { categories, setSelectedCategoryID } = useProduct();
     return(
         <>
             <div className="categories">
@@ -13,7 +13,7 @@ function Categories() {
                         key={cat.CategoryID}
                         name={cat.Name}
                         // TODO - Make onClick function filter by selected category 
-                        onClick={() => console.log("Clicked category: ", cat.CategoryID)}
+                        onClick={() => setSelectedCategoryID(cat.CategoryID)}
                     />
                 ))}
             </div>

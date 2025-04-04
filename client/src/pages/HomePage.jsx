@@ -4,10 +4,12 @@ import ProductCard from '../components/ProductCard';
 import './HomePage.css';
 
 function HomePage() {
-  const { products } = useProduct();
+  const { products, selectedCategoryID } = useProduct();
+
+  const filteredProducts = selectedCategoryID ? products.filter(p => p.CategoryID === selectedCategoryID) : products;
     return (
     <div className="product-grid">
-      {products.map((product) => (
+      {filteredProducts.map((product) => (
         <ProductCard key={product.id} product={product} />
       ))}
     </div>
