@@ -13,18 +13,19 @@ export function AuthProvider({ children }) {
 
 
 const logout = async () => {
+
     try {
-        await fetch('/api/authentication/logout', {
-        method: 'POST',
-        credentials: 'include',
+            await fetch('/api/authentication/logout', {
+            method: 'POST',
+            credentials: 'include',
         });
     } catch (err) {
         console.error("Logout request failed:", err);
     }
     
-    // Clear context state
-    setIsLoggedIn(false);
-    setUser(null);
+        // Clear context state
+        setIsLoggedIn(false);
+        setUser(null);
     };
 
 
@@ -42,5 +43,3 @@ export function useAuth(){
     }
     return context;
 }
-
-/* {isLoggedIn && <p>Logged in as {user.Username}</p>} */ // <- used to check login status ezpz

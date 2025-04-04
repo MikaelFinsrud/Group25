@@ -1,4 +1,4 @@
-import products from '../products';
+import products from '../testdata/products';
 import ProductCard from '../components/ProductCard';
 import './HomePage.css';
 

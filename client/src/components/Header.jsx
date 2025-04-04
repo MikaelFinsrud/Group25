@@ -22,6 +22,7 @@ function Header() {
                 </div>
 
                 <div className="header-right">
+                    {/* If logged in, make cart and profile available */}
                     {isLoggedIn ? (
                         <div>
                             <button className="logout-link" onClick={ logoutAndRedirect }>Sign out</button>

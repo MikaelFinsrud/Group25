@@ -8,13 +8,14 @@ function Profile(){
     const { isLoggedIn, user } = useAuth();
     const navigate = useNavigate()
 
+    // Check if user is logged in. If not, redirect to /
     useEffect(() => {
         if (!isLoggedIn){
             navigate('/');
         }
     }, [isLoggedIn, navigate]);
 
-    // Fetch orders 
+    // TODO - Fetch orders 
 
     return(
         <div className="profile-container">
@@ -24,7 +25,7 @@ function Profile(){
                 <p>Logged in as: {user.Username}, {user.Email}, {user.PhoneNumber}</p>
             </>
 
-            // Display orders using ordercards
+            // TODO - Display orders using ordercards
 
             }
         </div>
