@@ -1,6 +1,8 @@
 const express = require('express');
 const path = require('path');
 const app = express();
+const session = require('express-session');
+const cookieParser = require('cookie-parser');
 const pool = require(path.join(__dirname, 'database.js'));
 require('dotenv').config();
 
@@ -15,6 +17,20 @@ const productsRoutes = require(path.join(__dirname, 'routes', 'products.js'));
 
 // Converts req.body to a json object
 app.use('/api/*any', express.json());
+
+// Allows the server to read cookies sent by the client
+app.use(cookieParser());
+
+// Sets the server up manage user sessions
+app.use(session({
+  secret: 'testkey123', // keep this safe in real production!
+  resave: false,
+  saveUninitialized: false,
+  cookie: {
+    maxAge: 1000 * 60 * 60 * 24, // 1 day
+    httpOnly: true, // Mitigate XSS
+  }
+}));
 
 // Use routers
 app.use('/api/authentication', authenticationRoutes);
@@ -42,7 +58,7 @@ app.use((err, req, res, next) => {
     success: false,
     message,
   });
-});
+});w
 
 // Serve frontend
 app.use(express.static(path.join(__dirname, 'client', 'dist')));
