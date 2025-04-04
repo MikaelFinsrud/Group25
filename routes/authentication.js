@@ -62,13 +62,14 @@ router.post('/login', async (req, res, next) => {
     if (creds.username && creds.password){
       conn = await pool.getConnection();
 
-      const [user] = await conn.query(
+      const rows = await conn.query(
         "SELECT * FROM users WHERE username = ?",
         [creds.username]
       );
+      const user = rows[0];
 
       if (user) {
-        const valid = await bcrypt.compare(creds.password, user.password);
+        const valid = await bcrypt.compare(creds.password, user.Password);
 
         if (valid){
           // Set session

@@ -1,8 +1,14 @@
 import './LoginPage.css';
 import { Link } from 'react-router-dom';
 import { useState } from 'react'
+import { useAuth } from '../context/AuthContext';
+import { useNavigate } from 'react-router-dom';
 
 function LoginPage(){
+
+        const { login } = useAuth();
+        const navigate = useNavigate();
+
         const [formData, setFormData] = useState({
             username: '',
             password: '',
@@ -33,7 +39,7 @@ function LoginPage(){
 
         // Send form data to backend
         try {
-            const response = await fetch('/api/login', {
+            const response = await fetch('/api/authentication/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type' : 'application/json',
@@ -46,12 +52,8 @@ function LoginPage(){
             if (response.ok) {
                 setSuccessMessage(data.message || 'Login successful! :)');
                 setError('');
-                
-                // clear input fields
-                setFormData({
-                    username: '',
-                    password: '',
-                });
+                login(data.user);
+                navigate('/');  // Redirect to main page after login  
             }
             else{
                 setError(data.message || 'Error');

@@ -1,6 +1,6 @@
 import { useState, createContext, useContext } from 'react';
 
-const AuthContext = createContext();
+const AuthContext = createContext(null);
 
 export function AuthProvider({ children }) {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -24,5 +24,11 @@ export function AuthProvider({ children }) {
 }
 
 export function useAuth(){
-    return useContext(AuthContext);
+    const context = useContext(AuthContext);
+    if (!context) {
+        throw new Error("useAuth must be used within an AuthProvider");
+    }
+    return context;
 }
+
+/* {isLoggedIn && <p>Logged in as {user.Username}</p>} */ // <- used to check login status ezpz
