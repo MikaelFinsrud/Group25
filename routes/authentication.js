@@ -2,6 +2,7 @@
 const express = require('express');
 const path = require('path');
 const bcrypt = require('bcrypt');
+const requireAuth = require('../middleware/requireAuth');
 const pool = require(path.join(__dirname, '..', 'database.js'));
 const utils = require(path.join(__dirname, '..', 'utils.js'));
 const router = express.Router();
@@ -105,6 +106,25 @@ router.post('/login', async (req, res, next) => {
   finally {
     if (conn) conn.release();
   }
+});
+
+router.post('/logout', requireAuth, async (req, res, next) => {
+  req.session.destroy(err => {
+    if (err) {
+      console.error("Error destroying session", err);
+      err.statusCode = 500;
+      err.message = "Could not log out."
+      return next(err);
+    }
+
+    res.clearCookie('connect.sid'); // Clears the cookie on the client
+
+    const message = 'Successfully logged out of account'
+    return res.status(200).json({
+      success: true,
+      message
+    });
+  })
 });
 
 module.exports = router;
