@@ -1,17 +1,36 @@
 // server/routes/products.js
 const express = require('express');
+const path = require('path');
 const router = express.Router();
+const pool = require(path.join(__dirname, '..', 'database.js'));
+const utils = require(path.join(__dirname, '..', 'utils.js'));
 
-// Sample data
-const products = [
-  { id: 1, name: 'Laptop', category: 'Computers', price: 1200 },
-  { id: 2, name: 'Headphones', category: 'Audio', price: 99 },
-  { id: 3, name: 'Monitor', category: 'Computers', price: 220 },
-  { id: 4, name: 'Smartphone', category: 'Phones', price: 700 },
-];
+router.get('/', async (req, res, next) => {
+  let conn;
 
-router.get('/products', (req, res) => {
-  res.json(products);
+  try {
+    conn = await pool.getConnection();
+
+    const categories = await conn.query("SELECT * FROM categories");
+    const products = await conn.query("SELECT * FROM products");
+
+    const message = "Products and categories successfully fetched";
+
+    return res.status(200).json({
+      success: true,
+      message,
+      categories,
+      products
+    })
+  }
+  catch(err) {
+    console.error("Something went wrong with fetching products: ", err.message);
+    err.statusCode = 500;
+    return next(err);
+  }
+  finally {
+    if (conn) conn.release();
+  }
 });
 
 module.exports = router;
