@@ -5,13 +5,13 @@ const ProductContext = createContext();
 export function ProductProvider({ children }){
     const [categories, setCategories] = useState([]);
     const [products, setProducts] = useState([]);
-    const [selectedCategoryID, setSelectedCategoryID] = useState([null]);
+    const [selectedCategoryID, setSelectedCategoryID] = useState(null);
 
     useEffect(() => {
         async function fetchData(){
             try{
-                const res = fetch('/api/products');
-                const data = (await res).json();
+                const res = await fetch('/api/products');
+                const data = await res.json();
                 if (res.ok && data.success){
                     setCategories(data.categories);
                     setProducts(data.products);
