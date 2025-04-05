@@ -1,126 +1,120 @@
 .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: 100px;
-    background-color: #f4f4f4;
-    padding: 0 2rem;
-    box-sizing: border-box;
-    margin-left: 15%;
-    margin-right: 15%;
-    font-family: roboto;
-  }
-  
-  .header-left .logo {
-    margin: 0;
-    color: #222;
-    font-size: xx-large;
-    text-decoration: none;
-  }
-  
-  .header-center {
-    flex: 1;
-    display: flex;
-    justify-content: center;
-  }
-  
-  .header-center input {
-    width: 60%;
-    padding: 0.5rem 1rem;
-    font-size: 1rem;
-    border: 2px solid orange;
-    border-radius: 6px;
-  }
-  
-  .header-right button {
-    margin-left: 1rem;
-    padding: 0.5rem 1rem;
-    font-size: 1rem;
-    background-color: white;
-    border: 1px solid #ccc;
-    cursor: pointer;
-  }
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100px;
+  background-color: #f4f4f4;
+  padding: 0 2rem;
+  box-sizing: border-box;
+  margin-left: 15%;
+  margin-right: 15%;
+  font-family: roboto;
+}
 
-  .login-link{
-    margin-left: 1rem;
-    padding: 0.5rem 1rem;
-    font-size: 1rem;
-    background-color: white;
-    border: 1px solid #ccc;
-    cursor: pointer;
-    text-decoration: none;
-    color: black;
-  }
+/* Left: Logo */
+.header-left .logo {
+  margin: 0;
+  color: #222;
+  font-size: xx-large;
+  text-decoration: none;
+}
 
-  .logout-link{
-    margin-left: 1rem;
-    padding: 0.5rem 1rem;
-    font-size: 1rem;
-    background-color: white;
-    border: 1px solid #ccc;
-    cursor: pointer;
-    text-decoration: none;
-    color: black;
-  }
+/* Center: Search */
+.header-center {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
 
-  .cart-link{
-    margin-left: 1rem;
-    padding: 0.5rem 1rem;
-    font-size: 1rem;
-    background-color: white;
-    border: 1px solid #ccc;
-    cursor: pointer;
-    text-decoration: none;
-    color: black;
-  }
-  
-  .cart-link-2{
-    margin-left: 1rem;
-    padding: 0.5rem 1rem;
-    font-size: 1rem;
-    background-color: rgba(255, 255, 255, 0.61);
-    border: 1px solid #ccc;
-    cursor: pointer;
-    text-decoration: none;
-    color: rgba(0, 0, 0, 0.61);
-  }
+.header-center input {
+  width: 60%;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  border: 2px solid orange;
+  border-radius: 6px;
+}
 
-  .profile-link{
-    margin-left: 1rem;
-    padding: 0.5rem 1rem;
-    font-size: 1rem;
-    background-color: white;
-    border: 1px solid #ccc;
-    cursor: pointer;
-    text-decoration: none;
-    color: black;
-  }
-  
+/* Right Side */
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
 
-  .tooltip-wrapper {
-    position: relative;
-    display: inline-block;
-  }
-  
-  .tooltip-text {
-    visibility: hidden;
-    background-color: black;
-    color: #fff;
-    text-align: center;
-    border-radius: 5px;
-    padding: 0.5rem;
-    position: absolute;
-    z-index: 1;
-    top: 125%;
-    left: 50%;
-    transform: translateX(-50%);
-    white-space: nowrap;
-    font-size: 0.9rem;
-    opacity: 0;
-    transition: opacity 0.3s;
-  }
-  
-  .tooltip-wrapper:hover .tooltip-text {
-    visibility: visible;
-    opacity: 1;
-  }
+/* Icon Buttons (User, Cart) */
+.icon-button {
+  background-color: white;
+  border: 1px solid #a3a3a3;
+  padding: 0.5rem;
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  color: black;
+  text-decoration: none;
+}
+
+.icon-button.disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+/* Dropdown Menu */
+.dropdown-wrapper {
+  position: relative;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 120%;
+  right: 0;
+  background-color: white;
+  border: 1px solid #ccc;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  border-radius: 6px;
+  padding: 0.5rem 0;
+  display: flex;
+  flex-direction: column;
+  min-width: 160px;
+  z-index: 100;
+}
+
+.dropdown-item {
+  padding: 0.75rem 1rem;
+  text-decoration: none;
+  color: #333;
+  font-size: 1rem;
+}
+
+.dropdown-item:hover {
+  background-color: #f0f0f0;
+}
+
+/* Tooltip */
+.tooltip-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.tooltip-text {
+  visibility: hidden;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  border-radius: 5px;
+  padding: 0.5rem;
+  position: absolute;
+  z-index: 1;
+  top: 125%;
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  font-size: 0.9rem;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.tooltip-wrapper:hover .tooltip-text {
+  visibility: visible;
+  opacity: 1;
+}

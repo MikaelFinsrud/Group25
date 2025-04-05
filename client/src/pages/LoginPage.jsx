@@ -6,13 +6,13 @@ import { useNavigate } from 'react-router-dom';
 
 function LoginPage(){
 
-        const { login } = useAuth();
-        const navigate = useNavigate();
+    const { login } = useAuth();
+    const navigate = useNavigate();
 
-        const [formData, setFormData] = useState({
-            username: '',
-            password: '',
-        });
+    const [formData, setFormData] = useState({
+        username: '',
+        password: '',
+    });
 
     const [error, setError] = useState('');
     const [successMessage, setSuccessMessage] = useState('');
@@ -45,6 +45,7 @@ function LoginPage(){
                     'Content-Type' : 'application/json',
                 },
                 body: JSON.stringify(formData),
+                credentials: 'include'
             });
 
             const data = await response.json();

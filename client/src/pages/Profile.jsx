@@ -5,16 +5,19 @@ import OrderCard from '../components/OrderCard';
 import './Profile.css';
 
 function Profile(){
-    const { isLoggedIn, user } = useAuth();
+
+    const { isLoggedIn, user, authChecked } = useAuth();
     const navigate = useNavigate()
 
+    // Check if user is logged in. If not, redirect to /
     useEffect(() => {
-        if (!isLoggedIn){
+        if (authChecked && !isLoggedIn){
             navigate('/');
         }
-    }, [isLoggedIn, navigate]);
+    }, [authChecked, isLoggedIn, navigate]);
 
-    // Fetch orders 
+    if (!authChecked) return null;
+
 
     return(
         <div className="profile-container">
@@ -23,9 +26,6 @@ function Profile(){
                 <h2>Profile</h2>
                 <p>Logged in as: {user.Username}, {user.Email}, {user.PhoneNumber}</p>
             </>
-
-            // Display orders using ordercards
-
             }
         </div>
     );

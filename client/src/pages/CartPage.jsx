@@ -3,14 +3,18 @@ import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 
 function CartPage(){
-    const { isLoggedIn, user } = useAuth();
+    const { isLoggedIn, user, authChecked } = useAuth();
     const navigate = useNavigate()
 
+    // Check if user is logged in. If not, redirect to /
     useEffect(() => {
-        if (!isLoggedIn){
+        if (authChecked && !isLoggedIn){
             navigate('/');
         }
-    }, [isLoggedIn, navigate]);
+    }, [authChecked, isLoggedIn, navigate]);
+
+    if (!authChecked) return null;
+
 
     return(
         <>
