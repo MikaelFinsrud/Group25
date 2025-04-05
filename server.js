@@ -24,7 +24,7 @@ app.use(cookieParser());
 
 // Sets the server up manage user sessions
 app.use(session({
-  secret: 'testkey123', // keep this safe in real production!
+  secret: process.env.SESSION_SECRET || 'fallbackKey123',
   resave: false,
   saveUninitialized: false,
   cookie: {
