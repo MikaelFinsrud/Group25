@@ -2,7 +2,6 @@ import './Categories.css'
 import CategoryButton from './CategoryButton'
 import { useProduct } from '../context/ProductContext'
 import { useNavigate } from 'react-router-dom';
-// import categoryData from '../testdata/categories'
 
 function Categories() {
     const { categories, setSelectedCategoryID } = useProduct();
