@@ -1,10 +1,12 @@
 import './Categories.css'
 import CategoryButton from './CategoryButton'
 import { useProduct } from '../context/ProductContext'
+import { useNavigate } from 'react-router-dom';
 // import categoryData from '../testdata/categories'
 
 function Categories() {
     const { categories, setSelectedCategoryID } = useProduct();
+    const navigate = useNavigate();
     return(
         <>
             <div className="categories">
@@ -12,8 +14,10 @@ function Categories() {
                     <CategoryButton
                         key={cat.CategoryID}
                         name={cat.Name}
-                        // TODO - Make onClick function filter by selected category 
-                        onClick={() => setSelectedCategoryID(cat.CategoryID)}
+                        onClick={() => {
+                            setSelectedCategoryID(cat.CategoryID);
+                            navigate('/');
+                        }}
                     />
                 ))}
             </div>
