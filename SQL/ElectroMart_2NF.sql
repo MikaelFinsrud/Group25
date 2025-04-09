@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Apr 02, 2025 at 01:08 PM
+-- Generation Time: Apr 09, 2025 at 11:27 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.1.17
 
@@ -20,30 +20,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `ElectroMart_2NF`
 --
-
--- --------------------------------------------------------
-
---
--- Table structure for table `Brand`
---
-
-CREATE TABLE `Brand` (
-  `BrandID` int(11) NOT NULL,
-  `Name` varchar(100) NOT NULL,
-  `Description` text DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_danish_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `Category`
---
-
-CREATE TABLE `Category` (
-  `CategoryID` int(11) NOT NULL,
-  `Name` varchar(100) NOT NULL,
-  `Description` text DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_danish_ci;
 
 -- --------------------------------------------------------
 
@@ -100,7 +76,11 @@ CREATE TABLE `Product` (
   `Price` decimal(10,2) NOT NULL,
   `StockQuantity` int(11) DEFAULT 0,
   `BrandID` int(11) NOT NULL,
+  `BrandName` varchar(100) NOT NULL,
+  `BrandDescription` text DEFAULT NULL,
   `CategoryID` int(11) NOT NULL,
+  `CategoryName` varchar(100) NOT NULL,
+  `CategoryDescription` text DEFAULT NULL,
   `ImageID` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_danish_ci;
 
@@ -124,18 +104,6 @@ CREATE TABLE `Users` (
 --
 -- Indexes for dumped tables
 --
-
---
--- Indexes for table `Brand`
---
-ALTER TABLE `Brand`
-  ADD PRIMARY KEY (`BrandID`);
-
---
--- Indexes for table `Category`
---
-ALTER TABLE `Category`
-  ADD PRIMARY KEY (`CategoryID`);
 
 --
 -- Indexes for table `OrderItem`
@@ -171,7 +139,9 @@ ALTER TABLE `Product`
 -- Indexes for table `Users`
 --
 ALTER TABLE `Users`
-  ADD PRIMARY KEY (`UserID`);
+  ADD PRIMARY KEY (`UserID`),
+  ADD UNIQUE KEY `Username` (`Username`),
+  ADD UNIQUE KEY `Email` (`Email`);
 
 --
 -- Constraints for dumped tables
@@ -195,13 +165,6 @@ ALTER TABLE `Orders`
 --
 ALTER TABLE `Payment`
   ADD CONSTRAINT `payment_ibfk_1` FOREIGN KEY (`OrderID`) REFERENCES `Orders` (`OrderID`);
-
---
--- Constraints for table `Product`
---
-ALTER TABLE `Product`
-  ADD CONSTRAINT `product_ibfk_1` FOREIGN KEY (`BrandID`) REFERENCES `Brand` (`BrandID`),
-  ADD CONSTRAINT `product_ibfk_2` FOREIGN KEY (`CategoryID`) REFERENCES `Category` (`CategoryID`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
