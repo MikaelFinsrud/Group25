@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: 10. Apr, 2025 13:40 PM
+-- Generation Time: 10. Apr, 2025 14:38 PM
 -- Tjener-versjon: 10.4.28-MariaDB
 -- PHP Version: 8.0.28
 
@@ -161,7 +161,7 @@ CREATE TABLE `Products` (
 
 INSERT INTO `Products` (`ProductID`, `Name`, `Description`, `Price`, `StockQuantity`, `BrandID`, `CategoryID`, `ImageID`) VALUES
 (1, 'LG 55\' QNED 85 4K TV (2024) 55QNED85T6C', 'High-end QNED TV with 4k resolution', 10000.00, 30, 3, 4, 8),
-(2, 'USB-C Smartphone Charger', 'Fast-charging USB-C cable and power adapter', 190.00, 100, 1, 5, 0),
+(2, 'USB-C Smartphone Charger', 'Fast-charging USB-C cable and power adapter', 190.00, 100, 1, 5, 15),
 (3, 'Lenovo LOQ 15 FHD', 'A gaming laptop with GeForce RTX 4060, Ryzen 7 7435HS, 24 GB RAM, 512 GB SSD, Windows 11 Home', 14000.00, 50, 2, 3, 6),
 (22, 'MSI 27\" Curved gaming screen MAG 27C6X', 'Lightning fast 1080p 250hz curved gaming screen', 1890.00, 50, 4, 3, 5),
 (23, 'ElectroMart-PC Epic Gaming i210 RGB', 'Budget friendly gaming desktop with RTX 5070', 21000.00, 10, 8, 3, 7),
@@ -172,8 +172,8 @@ INSERT INTO `Products` (`ProductID`, `Name`, `Description`, `Price`, `StockQuant
 (28, 'Apple Watch Series 9', 'The latest Apple smartwatch with health tracking', 6500.00, 35, 6, 1, 11),
 (29, 'Samsung Galaxy Watch 6', 'Feature-rich smartwatch for Android users', 5000.00, 40, 7, 1, 11),
 (30, 'Techify SmartBand Pro', 'Lightweight fitness tracker with OLED display', 1200.00, 70, 1, 1, 11),
-(31, 'Apple AirPods Pro 2', 'Wireless earbuds with noise cancellation', 3500.00, 50, 6, 5, 0),
-(32, 'Samsung Galaxy Buds 2 Pro', 'Premium earbuds with 360 audio', 2900.00, 45, 7, 5, 0),
+(31, 'Apple AirPods Pro 2', 'Wireless earbuds with noise cancellation', 3500.00, 50, 6, 5, 2),
+(32, 'Samsung Galaxy Buds 2 Pro', 'Premium earbuds with 360 audio', 2900.00, 45, 7, 5, 2),
 (33, 'Lenovo Yoga 7i 14\"', 'Touchscreen 2-in-1 laptop with Intel i7', 17000.00, 20, 2, 2, 1),
 (34, 'Apple MacBook Air M2', 'Lightweight, powerful laptop with M2 chip', 18500.00, 25, 6, 2, 1),
 (35, 'LG UltraTab 10.3', 'Sleek Android tablet with stylus support', 7500.00, 30, 3, 2, 9),
@@ -181,7 +181,7 @@ INSERT INTO `Products` (`ProductID`, `Name`, `Description`, `Price`, `StockQuant
 (37, 'Lenovo IdeaPad Slim 5', 'Budget-friendly student laptop', 9500.00, 40, 2, 2, 1),
 (38, 'MSI Raider GE78 Gaming Laptop', 'Powerful gaming laptop with RTX 4080', 32000.00, 10, 4, 3, 6),
 (39, 'ElectroMart Gaming Beast X', 'Desktop PC with i9 and RTX 4090', 50000.00, 5, 8, 3, 7),
-(40, 'Logitech G Pro X Headset', 'Professional gaming headset with surround sound', 1800.00, 60, 5, 5, 0),
+(40, 'Logitech G Pro X Headset', 'Professional gaming headset with surround sound', 1800.00, 60, 5, 5, 4),
 (41, 'Lenovo Legion T5 Desktop', 'Tower PC with Ryzen 7 and RTX 4070', 24000.00, 15, 2, 3, 7),
 (42, 'LG UltraGear 32\" Gaming Monitor', 'High refresh rate monitor with 1ms response time', 5200.00, 25, 3, 3, 5),
 (43, 'LG OLED Evo 65\"', 'Stunning 4K OLED display with Dolby Vision', 36000.00, 8, 3, 4, 8),
@@ -189,12 +189,12 @@ INSERT INTO `Products` (`ProductID`, `Name`, `Description`, `Price`, `StockQuant
 (45, 'Logitech Z407 Bluetooth Speakers', 'Desktop speaker set with deep bass', 1100.00, 70, 5, 4, 13),
 (46, 'MSI SoundBar RGB Pro', 'Soundbar with RGB lighting and subwoofer', 1600.00, 35, 4, 4, 12),
 (47, 'Apple HomePod 2nd Gen', 'Smart speaker with spatial audio', 3200.00, 20, 6, 4, 13),
-(48, 'Logitech MX Master 3S Mouse', 'Ergonomic wireless mouse with precision scroll', 1200.00, 60, 5, 5, 0),
-(49, 'Lenovo ThinkVision 24\" Monitor', 'Office-grade full HD monitor', 2200.00, 40, 2, 5, 0),
-(50, 'Apple Magic Keyboard', 'Sleek and responsive keyboard for Apple devices', 1300.00, 25, 6, 5, 0),
-(51, 'Techify DockStation Pro', 'Multi-port docking station with USB-C support', 900.00, 80, 1, 5, 0),
-(52, 'MSI Wired Mechanical Keyboard', 'RGB mechanical keyboard with blue switches', 1100.00, 50, 4, 5, 0),
-(53, 'Samsung Galaxy Buds 2 Pro', 'Premium earbuds with 360 audio', 2900.00, 45, 7, 5, 0);
+(48, 'Logitech MX Master 3S Mouse', 'Ergonomic wireless mouse with precision scroll', 1200.00, 60, 5, 5, 3),
+(49, 'Lenovo ThinkVision 24\" Monitor', 'Office-grade full HD monitor', 2200.00, 40, 2, 5, 14),
+(50, 'Apple Magic Keyboard', 'Sleek and responsive keyboard for Apple devices', 1300.00, 25, 6, 5, 17),
+(51, 'Techify DockStation Pro', 'Multi-port docking station with USB-C support', 900.00, 80, 1, 5, 16),
+(52, 'MSI Wired Mechanical Keyboard', 'RGB mechanical keyboard with blue switches', 1100.00, 50, 4, 5, 17),
+(53, 'Samsung Galaxy Buds 2 Pro', 'Premium earbuds with 360 audio', 2900.00, 45, 7, 5, 2);
 
 -- --------------------------------------------------------
 
@@ -357,4 +357,3 @@ COMMIT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-ß
