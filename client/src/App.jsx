@@ -4,8 +4,9 @@ import HomePage from './pages/HomePage';
 import RegistrationPage from './pages/RegistrationPage';
 import Header from './components/Header.jsx'
 import Categories from './components/Categories.jsx'
-import CartPage from './pages/CartPage';
+import ShoppingCart from './pages/ShoppingCart.jsx';
 import Profile from './pages/Profile';
+import Orders from './pages/Orders.jsx';
 import Logout from './pages/Logout.jsx';
 import { Navigate } from 'react-router-dom';
 import './App.css';
@@ -19,9 +20,10 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/registration" element={<RegistrationPage />} />
-        <Route path="/cart" element={<CartPage />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/logout" element={<Logout />} />
+        <Route path="/cart" element={<ShoppingCart />} />
+        <Route path="/orders" element={<Orders />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </>

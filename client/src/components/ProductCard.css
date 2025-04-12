@@ -2,11 +2,11 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  justify-content: space-between; /* makes space between content and button */
+  justify-content: space-between;
   padding: 1rem;
   border: 1px solid #ccc;
   border-radius: 8px;
-  height: 250px; 
+  height: 400px; 
   width: 250px;
   background-color: #fff;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
@@ -14,11 +14,12 @@
 }
 
 .product-card h3 {
-  margin-bottom: 0.5rem;
+  margin: 0.25rem 0;
+  font-size: 1.1rem;
 }
 
 .product-card .price {
-  margin-top: 1rem;
+  margin: 0.25rem 0;
   font-weight: bold;
   color: green;
 }
@@ -73,14 +74,18 @@
   color: black;
   border-radius: 6px;
   transition: background-color 0.2s ease;
-  /* Remove these lines */
-  /* position: absolute;
-  bottom: 1rem;
-  right: 1rem; */
-  margin-top: auto; /* pushes button to bottom */
-  align-self: center; /* centers button horizontally */
+  margin-top: auto; 
+  align-self: center; 
 }
 
 .product-card button:hover {
   background-color: #f0f0f0;
+}
+
+.product-image {
+  width: 100%;
+  height: 180px;
+  object-fit: contain; 
+  border-radius: 4px;
+  margin-bottom: 0.5rem;
 }
