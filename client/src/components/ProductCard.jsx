@@ -1,23 +1,33 @@
 import './ProductCard.css';
 import { useAuth } from '../context/AuthContext';
 
+// Import all images eagerly from the assets folder
+const images = import.meta.glob('../assets/*.webp', { eager: true });
+
 function ProductCard({ product }) {
   const { isLoggedIn, authChecked } = useAuth();
-
   if (!authChecked) return null;
+
+  // Use ImageID to find the correct image
+  const imagePath = images[`../assets/${product.ImageID}.webp`];
 
   return (
     <div className="product-card">
+      {imagePath && (
+        <img
+          src={imagePath.default}
+          alt={product.Name}
+          className="product-image"
+        />
+      )}
       <h3>{product.Name}</h3>
       <p>{product.Description}</p>
       <p className="price">{product.Price}</p>
-      { isLoggedIn ? (
+      {isLoggedIn ? (
         <button className="add-to-cart">Add to cart</button>
       ) : (
         <div className="tooltip-wrapper">
-          <button className="add-to-cart-disabled">
-            Add to cart
-          </button>
+          <button className="add-to-cart-disabled">Add to cart</button>
           <span className="tooltip-text">Log in to add items to cart</span>
         </div>
       )}

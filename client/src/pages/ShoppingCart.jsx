@@ -1,10 +1,9 @@
 import { useAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
-import './Profile.css';
+import './ShoppingCart.css';
 
-function Profile(){
-
+function ShoppingCart(){
     const { isLoggedIn, user, authChecked } = useAuth();
     const navigate = useNavigate()
 
@@ -19,19 +18,16 @@ function Profile(){
 
 
     return(
-        <div className="profile-container">
-            { isLoggedIn && 
+        <div className="cart-container">
+            { isLoggedIn &&
             <>
-                <h2>Profile</h2>
-                <p>Logged in as {user.FirstName} {user.LastName}</p>
-                <p>Username: {user.Username}</p>
-                <p>Email: {user.Email}</p>
-                <p>Address: {user.Address}</p>
-                <p>Phone number: {user.PhoneNumber}</p>
+                <h2>Shopping cart</h2>
+                <p>Welcome to the cart :)</p>
             </>
             }
         </div>
     );
 }
 
-export default Profile;
+export default ShoppingCart;
+        

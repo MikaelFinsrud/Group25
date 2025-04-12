@@ -1,8 +1,10 @@
 import { useAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
+import './Orders.css';
 
-function CartPage(){
+function Orders(){
+
     const { isLoggedIn, user, authChecked } = useAuth();
     const navigate = useNavigate()
 
@@ -17,11 +19,15 @@ function CartPage(){
 
 
     return(
-        <>
-            { isLoggedIn && <p>Welcome to the cart :)</p>}
-        </>
+        <div className="orders-container">
+            { isLoggedIn && 
+            <>
+                <h2>Order history</h2>
+                <p>Welcome to the order page :)</p>
+            </>
+            }
+        </div>
     );
 }
 
-export default CartPage;
-        
+export default Orders;
