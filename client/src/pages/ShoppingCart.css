@@ -2,3 +2,13 @@
     margin-left: 300px;
     margin-right: 300px;
 }
+
+.checkout-btn {
+    margin-top: 0.5rem;
+    padding: 0.4rem 0.8rem;
+    background-color: orange;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
