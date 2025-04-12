@@ -8,6 +8,7 @@ import ShoppingCart from './pages/ShoppingCart.jsx';
 import Profile from './pages/Profile';
 import Orders from './pages/Orders.jsx';
 import Logout from './pages/Logout.jsx';
+import Checkout from './pages/Checkout.jsx';
 import { Navigate } from 'react-router-dom';
 import './App.css';
 
@@ -24,6 +25,7 @@ function App() {
         <Route path="/logout" element={<Logout />} />
         <Route path="/cart" element={<ShoppingCart />} />
         <Route path="/orders" element={<Orders />} />
+        <Route path="/checkout" element={<Checkout />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </>
