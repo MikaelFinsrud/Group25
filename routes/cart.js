@@ -13,8 +13,8 @@ router.use(requireAuth);
  * Route: GET /api/cart
  */
 router.get('/', (req, res, next) => {
-  // Dersom en handlekurv ikke finnes på session, returneres en tom array.
-  const cart = req.session.cart || [];
+  const cart = utils.getShoppingCart(req.session.user.userID, next);
+  
   res.status(200).json({
     success: true,
     message: 'Handlekurven ble hentet',
@@ -46,21 +46,22 @@ router.post('/', async (req, res, next) => {
     }
     const product = productRows[0];
 
-    // Initialiser handlekurven i session om den ikke allerede finnes
-    if (!req.session.cart) req.session.cart = [];
+    let cart = utils.getShoppingCart(req.session.user.userID, next);
 
     // Sjekk om produktet allerede er i handlekurven og oppdater antallet
-    const existingItem = req.session.cart.find(item => item.productId === productId);
+    const existingItem = cart.find(item => item.ProductId === productId);
     if (existingItem) {
-      existingItem.quantity += quantity;
+      utils.changeItemQuantity(product, existingItem.quantity + quantity, req.session.user.userID, next);
     } else {
-      req.session.cart.push({ productId, quantity, product });
+      utils.addItemToCart(product, quantity, req.session.user.userID. next);
     }
+
+    cart = utils.getShoppingCart(req.session.user.userID, next);
     
     res.status(200).json({
       success: true,
       message: "Produkt lagt til i handlekurven",
-      cart: req.session.cart
+      cart
     });
   } catch (err) {
     err.statusCode = 500;
@@ -78,31 +79,34 @@ router.post('/', async (req, res, next) => {
 router.patch('/:productId', (req, res, next) => {
   const { productId } = req.params;
   const { quantity } = req.body;
+  let cart = utils.getShoppingCart(req.session.user.userID, next);
   
   if (quantity == null || quantity < 0) {
     return next(utils.createError("Ugyldig mengde", 400));
   }
   
-  if (!req.session.cart) {
+  if (!cart) {
     return next(utils.createError("Handlekurven er tom", 404));
   }
   
-  const index = req.session.cart.findIndex(item => item.productId == productId);
+  const index = cart.findIndex(item => item.ProductId == productId);
   if (index === -1) {
     return next(utils.createError("Produktet finnes ikke i handlekurven", 404));
   }
   
   // Dersom mengden settes til 0, fjern produktet fra handlekurven
   if (quantity === 0) {
-    req.session.cart.splice(index, 1);
+    utils.removeItem(cart[index], req.session.user.userID, next);
   } else {
-    req.session.cart[index].quantity = quantity;
+    utils.changeItemQuantity(cart[index], quantity, req.session.user.userID, next);
   }
+
+  cart = utils.getShoppingCart(req.session.user.userID, next);
   
   res.status(200).json({
     success: true,
     message: "Handlekurven ble oppdatert",
-    cart: req.session.cart
+    cart
   });
 });
 
@@ -112,16 +116,25 @@ router.patch('/:productId', (req, res, next) => {
  */
 router.delete('/:productId', (req, res, next) => {
   const { productId } = req.params;
-  if (!req.session.cart) {
+  let cart = utils.getShoppingCart(req.session.user.userID, next);
+
+  if (!cart) {
     return next(utils.createError("Handlekurven er tom", 404));
   }
+
+  const index = cart.findIndex(item => item.ProductId == productId);
+  if (index === -1) {
+    return next(utils.createError("Produktet finnes ikke i handlekurven", 404));
+  }
+
+  utils.removeItem(cart[index], req.session.user.userID, next);
   
-  req.session.cart = req.session.cart.filter(item => item.productId != productId);
+  cart = utils.getShoppingCart(req.session.user.userID, next);
   
   res.status(200).json({
     success: true,
     message: "Produktet er fjernet fra handlekurven",
-    cart: req.session.cart
+    cart
   });
 });
 

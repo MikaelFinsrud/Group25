@@ -74,7 +74,7 @@ router.post('/login', async (req, res, next) => {
 
         if (valid){
           // Set session
-          req.session.user = { username: creds.username };
+          req.session.user = { username: creds.username, userID: user.UserID };
           const message = "Account successfully logged in";
 
           return res.status(200).json({
