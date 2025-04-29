@@ -35,7 +35,7 @@ CREATE TABLE `OrderItem` (
   `Subtotal` decimal(10,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_danish_ci;
 
--- --------------------------------------------------------
+----------------------------------------------------------
 
 --
 -- Table structure for table `Orders`
@@ -48,7 +48,7 @@ CREATE TABLE `Orders` (
   `Status` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_danish_ci;
 
--- --------------------------------------------------------
+----------------------------------------------------------
 
 --
 -- Table structure for table `Payment`
