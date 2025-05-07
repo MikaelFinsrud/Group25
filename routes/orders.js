@@ -54,14 +54,8 @@ router.get('/orderlist', requireAuth, async (req, res, next) => {
 router.put('/checkout', requireAuth, async (req, res, next) => {
   let conn;
   try {
-    // 1) Hent handlekurv
-    const cart = utils.getShoppingCart(req.session.user.userID, next);
-    if (!cart || cart.length === 0) {
-      return next(utils.createError('Handlekurven er tom', 400));
-    }
-
-    // 2) Finn UserID
     const username = req.session.user && req.session.user.username;
+    if (!username) return next(utils.createError('Bruker ikke autentisert', 401));
 
     conn = await pool.getConnection();
     await conn.beginTransaction();
@@ -70,61 +64,65 @@ router.put('/checkout', requireAuth, async (req, res, next) => {
       'SELECT UserID FROM Users WHERE Username = ?',
       [username]
     );
-    if (userRows.length === 0) {
-      return next(utils.createError('Bruker ikke funnet', 404));
-    }
+    if (userRows.length === 0) return next(utils.createError('Bruker ikke funnet', 404));
     const userID = userRows[0].UserID;
 
-    // 3) Sjekk lager og beregn totalbeløp
+    // Hent handlekurven riktig med await
+    const cart = await utils.getShoppingCart(userID, next);
+    if (!cart || cart.length === 0) {
+      return next(utils.createError('Handlekurven er tom', 400));
+    }
+
+    // Beregn totalbeløp og sjekk lager
     let totalAmount = 0;
     for (const item of cart) {
       const [product] = await conn.query(
         'SELECT Price, StockQuantity, Name FROM Products WHERE ProductID = ?',
-        [item.ProductId]
+        [item.ProductID]
       );
-      if (!product) {
-        throw utils.createError(`Produkt med ID ${item.ProductId} finnes ikke`, 404);
-      }
+      if (!product) throw utils.createError(`Produkt med ID ${item.ProductID} finnes ikke`, 404);
       if (product.StockQuantity < item.Quantity) {
         throw utils.createError(`Ikke nok lager for produkt ${product.Name}`, 400);
       }
       totalAmount += product.Price * item.Quantity;
     }
 
+    // Finn eksisterende "Pending" ordre
     const rows = await conn.query("SELECT * FROM Orders WHERE UserID = ? AND Status='Pending'", [userID]);
     const order = rows[0];
-    if (!order){ //If no shopping cart exists, return error
-      return next(utils.createError("No shopping cart found", 400));
-  }
+    if (!order) return next(utils.createError("No shopping cart found", 400));
 
-    //Opprett ordre
-    await conn.query(`UPDATE Orders 
-            SET Status = "Confirmed"
-            WHERE UserID = ? AND Status="Pending"`, 
-            [userID]);
+    const orderId = order.OrderID;
 
-    const orderId = order.OrderId;
+    // Bekreft ordre
+    await conn.query(
+      `UPDATE Orders 
+       SET Status = 'Confirmed', TotalAmount = ?
+       WHERE OrderID = ?`,
+      [totalAmount, orderId]
+    );
+    console.log("TotalAmount being saved:", totalAmount);
 
-    //Oppdater lager
+    // Oppdater lager
     for (const item of cart) {
       await conn.query(
         'UPDATE Products SET StockQuantity = StockQuantity - ? WHERE ProductID = ?',
-        [item.Quantity, item.ProductId]
+        [item.Quantity, item.ProductID]
       );
     }
+    console.log('Received payment method:', req.body.paymentMethod);
+    const method = (typeof req.body.paymentMethod === 'string' && req.body.paymentMethod.trim()) || 'CreditCard';
+ 
 
-    // Opprett betalingspost
     await conn.query(
       'INSERT INTO Payments (OrderID, PaymentMethod, Amount, Status) VALUES (?, ?, ?, "Completed")',
-      [orderId, req.body.paymentMethod || 'CreditCard', totalAmount]
+      [orderId, method, totalAmount]
     );
 
-    await conn.commit();
+    // Tøm handlekurven
+    await conn.query('DELETE FROM OrderItems WHERE OrderID = ?', [orderId]);
 
-    // Tøm handlekurv
-    await conn.query(
-      'DELETE FROM OrderItems WHERE OrderID = ?', [orderId]
-    )
+    await conn.commit();
 
     return res.status(200).json({
       success: true,
@@ -140,6 +138,7 @@ router.put('/checkout', requireAuth, async (req, res, next) => {
     if (conn) conn.release();
   }
 });
+
 
 /**
  * GET /api/orders/history
@@ -206,7 +205,3 @@ router.get('/history', requireAuth, async (req, res, next) => {
 });
 
 module.exports = router;
-
-
-
-

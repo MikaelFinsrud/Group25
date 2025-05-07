@@ -1,18 +1,33 @@
 import './ProductCard.css';
 import { useAuth } from '../context/AuthContext';
-import { useCart } from '../context/CartContext';
 
 // Import all images eagerly from the assets folder
 const images = import.meta.glob('../assets/*.webp', { eager: true });
 
 function ProductCard({ product }) {
-
-  const { addToCart } = useCart();
   const { isLoggedIn, authChecked } = useAuth();
   if (!authChecked) return null;
 
-  // Use ImageID to find the correct image
   const imagePath = images[`../assets/${product.ImageID}.webp`];
+
+  const handleAddToCart = async () => {
+    try {
+      const response = await fetch('/api/cart', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify({ productId: product.ProductID, quantity: 1 }),
+      });
+
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.message || 'Failed to add to cart');
+
+      // Optional: show a notification or toast here
+      console.log('Added to cart:', data);
+    } catch (err) {
+      console.error('Add to cart failed:', err.message);
+    }
+  };
 
   return (
     <div className="product-card">
@@ -25,9 +40,9 @@ function ProductCard({ product }) {
       )}
       <h3>{product.Name}</h3>
       <p>{product.Description}</p>
-      <p className="price">{product.Price}</p>
+      <p className="price">{product.Price} kr</p>
       {isLoggedIn ? (
-        <button className="add-to-cart" onClick={ () => addToCart(product) }>Add to cart</button>
+        <button className="add-to-cart" onClick={handleAddToCart}>Add to cart</button>
       ) : (
         <div className="tooltip-wrapper">
           <button className="add-to-cart-disabled">Add to cart</button>
