@@ -4,9 +4,10 @@ import { useEffect, useState } from 'react';
 import './HomePage.css';
 
 function HomePage() {
-  const { products, selectedCategoryID } = useProduct();
+  const { products, selectedCategoryID, searchQuery } = useProduct();
   const [cart, setCart] = useState([]);
 
+    
   useEffect(() => {
     const fetchCart = async () => {
       try {
@@ -25,9 +26,9 @@ function HomePage() {
     fetchCart();
   }, []);
 
-  const filteredProducts = selectedCategoryID
-    ? products.filter(p => p.CategoryID === selectedCategoryID)
-    : products;
+  const filteredProducts = products
+  .filter(p => !selectedCategoryID || p.CategoryID === selectedCategoryID)
+  .filter(p => p.Name.toLowerCase().includes(searchQuery.toLowerCase()));
 
   return (
     <div className="product-grid">
