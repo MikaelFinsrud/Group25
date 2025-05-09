@@ -4,11 +4,13 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { useEffect, useRef } from 'react';
+import { useProduct } from '../context/ProductContext';
 
 function Header() {
     const { isLoggedIn, authChecked } = useAuth();
     const [showMenu, setShowMenu] = useState(false);
     const dropdownRef = useRef(null);
+    const { setSearchQuery } = useProduct();
 
     // Close dropdown on outside click
     useEffect(() => {
@@ -30,7 +32,11 @@ function Header() {
       </div>
 
       <div className="header-center">
-        <input type="text" placeholder="Search for products..." />
+          <input
+            type="text"
+            placeholder="Search for products..."
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
       </div>
 
       <div className="header-right">
