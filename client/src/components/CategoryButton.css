@@ -7,6 +7,16 @@
     transition: 0.2s;
 }
 
+.category-button.active {
+  background-color: #007bff;
+  color: white;
+  border-color: #007bff;
+}
+
 .category-button:hover {
     background-color: #eee;
+}
+
+.category-button.active:hover {
+    background-color: #004690;
 }
