@@ -59,8 +59,7 @@ function Checkout() {
             Payment Method:
             <select value={paymentMethod} onChange={(e) => setPaymentMethod(e.target.value)}>
               <option value="CreditCard">Credit Card</option>
-              <option value="Vipps">Vipps</option>
-              <option value="Invoice">Invoice</option>
+              <option value="PayPal">PayPal</option>
             </select>
           </label>
 

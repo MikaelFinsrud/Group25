@@ -1,4 +1,14 @@
-.orders-container{
-    margin-left: 300px;
-    margin-right: 300px;
+.order-summary {
+  margin: 1.5rem 0;
+  padding: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background: #f9f9f9;
+}
+.order-summary ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+.order-summary li {
+  margin-bottom: 0.5rem;
 }

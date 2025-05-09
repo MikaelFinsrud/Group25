@@ -110,8 +110,11 @@ router.put('/checkout', requireAuth, async (req, res, next) => {
         [item.Quantity, item.ProductID]
       );
     }
+
     console.log('Received payment method:', req.body.paymentMethod);
-    const method = (typeof req.body.paymentMethod === 'string' && req.body.paymentMethod.trim()) || 'CreditCard';
+    const method = typeof req.body.paymentMethod === 'string'
+    ? req.body.paymentMethod.trim()
+    : 'CreditCard';
  
 
     await conn.query(
@@ -119,8 +122,7 @@ router.put('/checkout', requireAuth, async (req, res, next) => {
       [orderId, method, totalAmount]
     );
 
-    // Tøm handlekurven
-    await conn.query('DELETE FROM OrderItems WHERE OrderID = ?', [orderId]);
+  
 
     await conn.commit();
 
