@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Apr 09, 2025 at 11:27 AM
+-- Generation Time: May 21, 2025 at 12:40 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.1.17
 
@@ -35,7 +35,16 @@ CREATE TABLE `OrderItem` (
   `Subtotal` decimal(10,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_danish_ci;
 
-----------------------------------------------------------
+--
+-- Dumping data for table `OrderItem`
+--
+
+INSERT INTO `OrderItem` (`OrderItemID`, `OrderID`, `ProductID`, `Quantity`, `Subtotal`) VALUES
+(1, 1, 1, 1, 10000.00),
+(2, 1, 2, 2, 380.00),
+(3, 2, 3, 1, 14000.00);
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `Orders`
@@ -48,7 +57,15 @@ CREATE TABLE `Orders` (
   `Status` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_danish_ci;
 
-----------------------------------------------------------
+--
+-- Dumping data for table `Orders`
+--
+
+INSERT INTO `Orders` (`OrderID`, `UserID`, `OrderDate`, `Status`) VALUES
+(1, 1, '2025-05-21 12:39:26', 'Confirmed'),
+(2, 2, '2025-05-21 12:39:26', 'Pending');
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `Payment`
@@ -62,6 +79,14 @@ CREATE TABLE `Payment` (
   `Paymentdate` datetime NOT NULL,
   `Status` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_danish_ci;
+
+--
+-- Dumping data for table `Payment`
+--
+
+INSERT INTO `Payment` (`PaymentID`, `OrderID`, `PaymentMethod`, `Amount`, `Paymentdate`, `Status`) VALUES
+(1, 1, 'CreditCard', 10380.00, '2025-05-21 12:40:00', 'Completed'),
+(2, 2, 'PayPal', 14000.00, '2025-05-21 12:40:00', 'Pending');
 
 -- --------------------------------------------------------
 
@@ -84,6 +109,17 @@ CREATE TABLE `Product` (
   `ImageID` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_danish_ci;
 
+--
+-- Dumping data for table `Product`
+--
+
+INSERT INTO `Product` (`ProductID`, `Name`, `Description`, `Price`, `StockQuantity`, `BrandID`, `BrandName`, `BrandDescription`, `CategoryID`, `CategoryName`, `CategoryDescription`, `ImageID`) VALUES
+(1, 'LG 55\" QNED 85 4K TV (2024) 55QNED85T6C', 'High-end QNED TV with 4K resolution', 10000.00, 30, 3, 'LG', 'Popular high-end TV and monitor brand', 4, 'TV, sound & picture', 'TVs, speakers and soundbars', '8'),
+(2, 'USB-C Smartphone Charger', 'Fast-charging USB-C cable and power adapter', 190.00, 100, 1, 'Techify', 'Modern electronics brand', 5, 'Computer equipment', 'All kinds of general equipment and electronics', '15'),
+(3, 'Lenovo LOQ 15 FHD', 'Gaming laptop – RTX 4060, Ryzen 7 7435HS, 24 GB RAM, 512 GB SSD', 14000.00, 50, 2, 'Lenovo', 'Well-known laptop brand', 3, 'Gaming', 'Gaming laptops, desktops and screens', '6'),
+(24, 'Apple iPhone 16', 'The newest edition of Apple’s popular smartphone line', 15000.00, 40, 6, 'Apple', 'World-wide electronics brand known for high-quality phones, tablets and computers', 1, 'Mobile devices', 'Phones and watches', '10'),
+(31, 'Apple AirPods Pro 2', 'Wireless earbuds with noise cancellation', 3500.00, 50, 6, 'Apple', 'World-wide electronics brand known for high-quality phones, tablets and computers', 5, 'Computer equipment', 'All kinds of general equipment and electronics', '2');
+
 -- --------------------------------------------------------
 
 --
@@ -100,6 +136,15 @@ CREATE TABLE `Users` (
   `Address` text DEFAULT NULL,
   `PhoneNumber` varchar(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_danish_ci;
+
+--
+-- Dumping data for table `Users`
+--
+
+INSERT INTO `Users` (`UserID`, `Username`, `Password`, `Email`, `FirstName`, `LastName`, `Address`, `PhoneNumber`) VALUES
+(1, 'matsdev', 'hashedpass123', 'mats@example.com', 'Mats', 'Finsrud', '123 Main Street', '1234567890'),
+(2, 'emiltech', 'hashedpass456', 'emil@example.com', 'Emil', 'Nilsen', '456 Code Avenue', '9876543210'),
+(3, 'mikke', 'hashedpass789', 'mikke@mus.com', 'Mikke', 'Mus', 'Javaveien 48', '12345678');
 
 --
 -- Indexes for dumped tables
