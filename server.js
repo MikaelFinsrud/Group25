@@ -76,7 +76,7 @@ app.listen(PORT, async () => {
   try {
     conn = await pool.getConnection();
     const rows = await conn.query("SELECT * FROM products");
-    console.log("Products: ", rows);
+    console.log("Database successfully connected!");
   }
   catch {
     console.error("Database connection failed!");
